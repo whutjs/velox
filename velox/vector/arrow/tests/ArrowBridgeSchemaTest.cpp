@@ -290,6 +290,9 @@ TEST_F(ArrowBridgeSchemaExportTest, constant) {
 
   testConstant(ARRAY(INTEGER()), "+l");
   testConstant(ARRAY(UNKNOWN()), "+l");
+  VELOX_ASSERT_THROW(
+      testConstant(MAP(BOOLEAN(), REAL()), "+m", {false, true}),
+      "Flattening is only supported for scalar types.");
   testConstant(MAP(BOOLEAN(), REAL()), "+m");
   testConstant(MAP(UNKNOWN(), REAL()), "+m");
   testConstant(ROW({TIMESTAMP(), DOUBLE()}), "+s");
